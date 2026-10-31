@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Map | Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fa;color:#182033;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+#login{max-width:390px;margin:100px auto;background:white;padding:28px;border-radius:18px;box-shadow:0 8px 35px #15213a12}
+h1{font-size:25px}
+input{width:100%;padding:13px;margin:8px 0;border:1px solid #dce1ea;border-radius:9px}
+.primary{background:#263c75;color:white;border:0;padding:13px;border-radius:9px;width:100%;margin-top:10px}
+#app{display:none;min-height:100vh}
+.sidebar{background:#17213b;color:white;width:235px;padding:24px 15px;position:fixed;inset:0 auto 0 0}
+.logo{font-size:21px;font-weight:bold;padding:10px;margin-bottom:25px}
+.nav{display:block;width:100%;text-align:left;padding:13px;background:transparent;border:0;color:#dce4f5;border-radius:8px;margin:5px 0}
+.nav.active,.nav:hover{background:#30446f;color:white}
+.logout{position:absolute;bottom:25px;left:15px;width:calc(100% - 30px);padding:12px;background:#39445f;color:white;border:0;border-radius:8px}
+main{margin-left:235px;padding:30px;max-width:1500px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+.muted{color:#7c879a;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:15px}
+.card,.panel{background:white;border-radius:13px;padding:20px;box-shadow:0 3px 15px #15213a08}
+.card strong{display:block;font-size:29px;margin-top:12px}
+.panel{margin-top:20px;overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:500px}
+th,td{text-align:left;padding:13px;border-bottom:1px solid #edf0f5;font-size:13px}
+th{color:#788399}
+.section{display:none}
+.section.active{display:block}
+.smallbtn{padding:8px 12px;border:0;border-radius:7px;background:#263c75;color:white}
+.notice{padding:12px;background:#fff4dc;border-radius:9px;margin:12px 0;color:#79571b}
+@media(max-width:700px){
+.sidebar{width:100%;height:auto;position:relative;padding:12px}
+.logo{margin:0 0 8px}
+.nav{display:inline-block;width:auto;padding:9px;font-size:12px}
+.logout{position:static;width:auto;margin-top:8px}
+main{margin:0;padding:15px}
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+header{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<section id="login">
+<h1>FUTURE MAP</h1>
+<p class="muted">Administrator Login</p>
+<input id="email" type="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button class="primary" onclick="login()">Войти в панель</button>
+<p id="message" class="muted"></p>
+</section>
+
+<div id="app">
+<aside class="sidebar">
+<div class="logo">FUTURE MAP</div>
+<button class="nav active" data-section="dashboard">Dashboard</button>
+<button class="nav" data-section="users">Users</button>
+<button class="nav" data-section="results">Quiz Results</button>
+<button class="nav" data-section="careers">Careers</button>
+<button class="nav" data-section="questions">Quiz Questions</button>
+<button class="nav" data-section="activity">Activity Log</button>
+<button class="logout" onclick="logout()">Выйти</button>
+</aside>
+
+<main>
+<header>
+<div>
+<h1 id="pageTitle">Dashboard</h1>
+<div class="muted">Future Map Administration</div>
+</div>
+<div class="muted" id="adminEmail"></div>
+</header>
+
+<section id="dashboard" class="section active">
+<div class="cards">
+<div class="card">Пользователи<strong id="userCount">—</strong></div>
+<div class="card">Результаты тестов<strong id="resultCount">—</strong></div>
+<div class="card">Профессии<strong id="careerCount">—</strong></div>
+<div class="card">Вопросы<strong id="questionCount">—</strong></div>
+</div>
+<div class="panel">
+<h3>Состояние проекта</h3>
+<p class="muted" id="status">Загрузка данных...</p>
+</div>
+</section>
+
+<section id="users" class="section">
+<div class="panel">
+<h3>Пользователи</h3>
+<div id="usersTable">Загрузка...</div>
+</div>
+</section>
+
+<section id="results" class="section">
+<div class="panel">
+<h3>Результаты тестирования</h3>
+<div id="resultsTable">Загрузка...</div>
+</div>
+</section>
+
+<section id="careers" class="section">
+<div class="panel">
+<h3>Профессии</h3>
+<p class="muted">Управление записями в базе данных.</p>
+<div id="careersTable">Загрузка...</div>
+</div>
+</section>
+
+<section id="questions" class="section">
+<div class="panel">
+<h3>Вопросы тестирования</h3>
+<div id="questionsTable">Загрузка...</div>
+</div>
+</section>
+
+<section id="activity" class="section">
+<div class="panel">
+<h3>История действий</h3>
+<div id="activityTable">Загрузка...</div>
+</div>
+</section>
+</main>
+</div>
+
+<script>
+// ВСТАВЬ СЮДА СВОИ ДАННЫЕ SUPABASE
+const SUPABASE_URL = "https://ucdxbxvcjmywvnvunpxs.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_HSUnBZlovo5Nb254p7FIJg_h_3u_a7j";
+
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+function showMessage(text){
+ document.getElementById("message").textContent=text;
+}
+
+async function login(){
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ if(!email||!password){showMessage("Заполни оба поля.");return;}
+
+ showMessage("Проверка...");
+ const {data,error}=await db.auth.signInWithPassword({email,password});
+
+ if(error){showMessage("Ошибка входа: "+error.message);return;}
+ await checkAdmin();
+}
+
+async function checkAdmin(){
+ const {data:{user}}=await db.auth.getUser();
+
+ if(!user){
+  document.getElementById("app").style.display="none";
+  document.getElementById("login").style.display="block";
+  return;
+ }
+
+ const {data,error}=await db
+  .from("profiles")
+  .select("role")
+  .eq("id",user.id)
+  .single();
+
+ if(error||!data||data.role!=="admin"){
+  await db.auth.signOut();
+  showMessage("Доступ запрещён. Нужна роль admin.");
+  return;
+ }
+
+ document.getElementById("login").style.display="none";
+ document.getElementById("app").style.display="block";
+ document.getElementById("adminEmail").textContent=user.email;
+ await loadDashboard();
+}
+
+async function logout(){
+ await db.auth.signOut();
+ location.reload();
+}
+
+async function countRows(table){
+ const {count,error}=await db.from(table)
+  .select("*",{count:"exact",head:true});
+ if(error) throw error;
+ return count||0;
+}
+
+async function loadDashboard(){
+ try{
+  const [u,r,c,q]=await Promise.all([
+   countRows("profiles"),
+   countRows("quiz_results"),
+   countRows("careers"),
+   countRows("quiz_questions")
+  ]);
+  document.getElementById("userCount").textContent=u;
+  document.getElementById("resultCount").textContent=r;
+  document.getElementById("careerCount").textContent=c;
+  document.getElementById("questionCount").textContent=q;
+  document.getElementById("status").textContent="Подключение к Supabase работает.";
+ }catch(e){
+  document.getElementById("status").textContent="Ошибка загрузки: "+e.message;
+ }
+}
+
+function makeTable(container,columns,rows){
+ const root=document.getElementById(container);
+ root.replaceChildren();
+
+ if(!rows||!rows.length){
+  root.textContent="Пока нет записей.";
+  return;
+ }
+
+ const table=document.createElement("table");
+ const head=document.createElement("tr");
+
+ columns.forEach(col=>{
+  const th=document.createElement("th");
+  th.textContent=col.label;
+  head.appendChild(th);
+ });
+ const thead=document.createElement("thead");
+ thead.appendChild(head);
+ table.appendChild(thead);
+
+ const tbody=document.createElement("tbody");
+ rows.forEach(row=>{
+  const tr=document.createElement("tr");
+  columns.forEach(col=>{
+   const td=document.createElement("td");
+   const value=row[col.key];
+   td.textContent=value==null?"—":
+    typeof value==="object"?JSON.stringify(value):String(value);
+   tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+ });
+ table.appendChild(tbody);
+ root.appendChild(table);
+}
+
+async function loadSection(name){
+ const configs={
+  users:{
+   table:"profiles",container:"usersTable",
+   columns:[{key:"id",label:"ID"},{key:"full_name",label:"Имя"},{key:"role",label:"Роль"},{key:"created_at",label:"Дата"}]
+  },
+  results:{
+   table:"quiz_results",container:"resultsTable",
+   columns:[{key:"user_id",label:"User ID"},{key:"career_result",label:"Результат"},{key:"created_at",label:"Дата"}]
+  },
+  careers:{
+   table:"careers",container:"careersTable",
+   columns:[{key:"id",label:"ID"},{key:"title",label:"Профессия"},{key:"category",label:"Категория"},{key:"description",label:"Описание"}]
+  },
+  questions:{
+   table:"quiz_questions",container:"questionsTable",
+   columns:[{key:"id",label:"ID"},{key:"question",label:"Вопрос"},{key:"options",label:"Варианты"}]
+  },
+  activity:{
+   table:"admin_activity",container:"activityTable",
+   columns:[{key:"admin_id",label:"Admin ID"},{key:"action",label:"Действие"},{key:"created_at",label:"Дата"}]
+  }
+ };
+
+ const cfg=configs[name];
+ if(!cfg)return;
+ const root=document.getElementById(cfg.container);
+ root.textContent="Загрузка...";
+
+ const {data,error}=await db.from(cfg.table)
+  .select("*").order("created_at",{ascending:false}).limit(100);
+
+ if(error){
+  root.textContent="Ошибка: "+error.message;
+  return;
+ }
+ makeTable(cfg.container,cfg.columns,data);
+}
+
+document.querySelectorAll(".nav").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  button.classList.add("active");
+  const name=button.dataset.section;
+  document.getElementById(name).classList.add("active");
+  document.getElementById("pageTitle").textContent=button.textContent;
+  if(name!=="dashboard")loadSection(name);
+ });
+});
+
+db.auth.onAuthStateChange((event,session)=>{
+ if(event==="SIGNED_IN"&&session){
+  setTimeout(checkAdmin,0);
+ }
+});
+
+(async()=>{
+ const {data:{session}}=await db.auth.getSession();
+ if(session) await checkAdmin();
+})();
+</script>
+</body>
+</html>

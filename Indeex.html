@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTURE MAP — Find Your Direction. Build Your Future.</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f4ff',
+                            100: '#e0e7ff',
+                            500: '#4338ca',
+                            600: '#3730a3',
+                            700: '#312e81',
+                            accent: '#06b6d4', // Cyan accent
+                            emerald: '#10b981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for sleek futuristic icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #3730a3 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-glow {
+            box-shadow: 0 0 50px -12px rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 glass-panel shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-compass text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">FUTURE MAP</span>
+                    <span class="block text-[10px] font-semibold text-cyan-600 tracking-widest uppercase">Ecosystem</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-6 text-sm font-medium text-slate-600">
+                <a href="#discovery" class="hover:text-indigo-600 px-3 py-2 rounded-lg transition-colors" data-i18n="nav_discovery">Career Discovery</a>
+                <a href="#careers-catalog" class="hover:text-indigo-600 px-3 py-2 rounded-lg transition-colors" data-i18n="nav_catalog">Careers Catalog</a>
+                <a href="#grants" class="hover:text-indigo-600 px-3 py-2 rounded-lg transition-colors" data-i18n="nav_grants">Grants & Scholarships</a>
+                <a href="#ecosystem" class="hover:text-indigo-600 px-3 py-2 rounded-lg transition-colors" data-i18n="nav_ecosystem">Ecosystem Vision</a>
+                <a href="#founder" class="hover:text-indigo-600 px-3 py-2 rounded-lg transition-colors" data-i18n="nav_founder">About Founder</a>
+            </nav>
+
+            <!-- Language Switcher & Actions -->
+            <div class="flex items-center space-x-3">
+                <div class="bg-slate-200/70 p-1 rounded-xl flex items-center text-xs font-bold text-slate-600">
+                    <button onclick="setLanguage('kk')" id="lang-btn-kk" class="px-2.5 py-1 rounded-lg transition-all">ҚАЗ</button>
+                    <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 rounded-lg transition-all bg-white text-indigo-700 shadow-sm">ENG</button>
+                    <button onclick="setLanguage('ru')" id="lang-btn-ru" class="px-2.5 py-1 rounded-lg transition-all">РУС</button>
+                </div>
+
+                <a href="#quiz-container" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 hover:shadow-indigo-300">
+                    <span data-i18n="hero_cta_quiz">Start Career Test</span>
+                </a>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#discovery" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-i18n="nav_discovery">Career Discovery</a>
+            <a href="#careers-catalog" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-i18n="nav_catalog">Careers Catalog</a>
+            <a href="#grants" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-i18n="nav_grants">Grants & Scholarships</a>
+            <a href="#ecosystem" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-i18n="nav_ecosystem">Ecosystem Vision</a>
+            <a href="#founder" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" data-i18n="nav_founder">About Founder</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+
+        <!-- HERO SECTION -->
+        <section class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 bg-slate-900 text-white">
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 right-0 w-96 h-96 bg-indigo-600 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-semibold mb-6">
+                    <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span data-i18n="hero_badge">Ecosystem for Kazakhstani Youth</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight max-w-4xl mx-auto">
+                    <span data-i18n="hero_title_1">Find Your Direction.</span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-emerald-400" data-i18n="hero_title_2">Build Your Future.</span>
+                </h1>
+
+                <p class="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal" data-i18n="hero_subtitle">
+                    A platform that helps young people discover careers, explore education, and turn ambitions into action — from school bench to top universities and state grants.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+                    <a href="#quiz-container" class="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 transition-all shadow-lg shadow-indigo-900/50 transform hover:-translate-y-0.5 text-center">
+                        <i class="fa-solid fa-compass mr-2"></i><span data-i18n="hero_cta_quiz">Start Career Test</span>
+                    </a>
+                    <a href="#careers-catalog" class="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-bold text-slate-200 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 transition-all text-center">
+                        <i class="fa-solid fa-layer-group mr-2"></i><span data-i18n="hero_cta_catalog">Explore Careers</span>
+                    </a>
+                </div>
+
+                <!-- Live Metrics Bar -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-slate-800">
+                    <div class="p-4 rounded-xl bg-slate-800/40">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400">15+</div>
+                        <div class="text-xs text-slate-400 mt-1" data-i18n="stat_professions">Detailed Career Profiles</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-800/40">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">10</div>
+                        <div class="text-xs text-slate-400 mt-1" data-i18n="stat_questions">In-Depth Test Questions</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-800/40">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1" data-i18n="stat_localization">3 Languages (ҚАЗ/ENG/РУС)</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-800/40">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-purple-400">6 Domains</div>
+                        <div class="text-xs text-slate-400 mt-1" data-i18n="stat_domains">Vector Scoring Match</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAREER DISCOVERY QUIZ SECTION -->
+        <section id="discovery" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider" data-i18n="quiz_section_subtitle">Multi-Vector Career Profiler</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2" data-i18n="quiz_section_title">Expanded Interactive Career Assessment</h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base" data-i18n="quiz_section_desc">Answer 10 scenario-based questions to evaluate your potential across Tech, Science, Business, Creative Arts, Public Policy, and Social Sciences.</p>
+            </div>
+
+            <!-- Quiz Card -->
+            <div id="quiz-container" class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="bg-slate-100 h-2 w-full">
+                    <div id="quiz-progress" class="bg-indigo-600 h-2 w-0 transition-all duration-300"></div>
+                </div>
+
+                <div id="quiz-card-content" class="p-6 sm:p-10">
+                    <!-- Dynamic Quiz Content Rendered Here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CAREER CATALOG SECTION -->
+        <section id="careers-catalog" class="py-16 md:py-24 bg-slate-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <span class="text-cyan-400 font-bold text-xs uppercase tracking-wider" data-i18n="catalog_tag">Comprehensive Database</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="catalog_title">Explore Future Professions</h2>
+                        <p class="text-slate-400 mt-2 text-sm sm:text-base max-w-2xl" data-i18n="catalog_subtitle">Discover key responsibilities, UNT profile subjects, university pathways, salary expectations, and market growth outlook.</p>
+                    </div>
+
+                    <div class="mt-6 md:mt-0 flex flex-col sm:flex-row gap-3">
+                        <div class="relative">
+                            <input type="text" id="career-search" oninput="filterCareers()" placeholder="Search careers or UNT subjects..." data-i18n-placeholder="career_search_ph" class="pl-10 pr-4 py-2.5 text-sm bg-slate-800 border border-slate-700 text-white rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none w-full sm:w-64 placeholder-slate-500">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 mb-8" id="career-category-tags">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Careers Grid -->
+                <div id="careers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GRANTS & SCHOLARSHIPS DIRECTORY -->
+        <section id="grants" class="py-16 md:py-24 bg-slate-100 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 text-cyan-700 font-bold text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-award"></i>
+                            <span data-i18n="grants_badge">Regularly Updated System</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2" data-i18n="grants_title">Grants & Scholarships in Kazakhstan</h2>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base max-w-2xl" data-i18n="grants_subtitle">Find financial aid, targeted state educational grants, and merit scholarships for high school students and prospective undergraduates.</p>
+                    </div>
+
+                    <div class="mt-6 md:mt-0 flex flex-col sm:flex-row gap-3">
+                        <div class="relative">
+                            <input type="text" id="grant-search" oninput="filterGrants()" placeholder="Search grants..." data-i18n-placeholder="grant_search_ph" class="pl-10 pr-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none w-full sm:w-64">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mb-8" id="grant-category-tags"></div>
+                <div id="grants-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- ECOSYSTEM VISION ROADMAP SECTION -->
+        <section id="ecosystem" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider" data-i18n="eco_subtitle">Holistic Educational Vision</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2" data-i18n="eco_title">The FUTURE MAP Ecosystem</h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base" data-i18n="eco_desc">Not just a quiz website, but a continuous guided ecosystem taking teenagers step-by-step from career discovery to university entry.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xl mb-4">1</div>
+                        <h3 class="font-bold text-slate-900 text-base mb-2" data-i18n="step1_title">Self & Career Discovery</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed" data-i18n="step1_desc">Multi-vector psychometric tests and profiling to identify innate strengths and potential.</p>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-indigo-600 mt-4 block" data-i18n="step1_tag">Phase 1</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-xl mb-4">2</div>
+                        <h3 class="font-bold text-slate-900 text-base mb-2" data-i18n="step2_title">Skill Roadmap</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed" data-i18n="step2_desc">Tailored learning paths for key hard/soft skills required for chosen futuristic professions.</p>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-cyan-600 mt-4 block" data-i18n="step2_tag">Phase 2</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xl mb-4">3</div>
+                        <h3 class="font-bold text-slate-900 text-base mb-2" data-i18n="step3_title">University Matching</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed" data-i18n="step3_desc">In-depth database of domestic (NU, KBTU, AITU) and international higher education hubs.</p>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-purple-600 mt-4 block" data-i18n="step3_tag">Phase 3</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-4">4</div>
+                        <h3 class="font-bold text-slate-900 text-base mb-2" data-i18n="step4_title">Grant & Scholarship Hub</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed" data-i18n="step4_desc">Direct assistance with UNT/IELTS targets, scholarship strategy, and submission deadlines.</p>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-emerald-600 mt-4 block" data-i18n="step4_tag">Phase 4</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xl mb-4">5</div>
+                        <h3 class="font-bold text-slate-900 text-base mb-2" data-i18n="step5_title">Mentorship & Network</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed" data-i18n="step5_desc">Connecting students with industry mentors, university alumni, and peer communities.</p>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-amber-600 mt-4 block" data-i18n="step5_tag">Phase 5</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER SECTION -->
+        <section id="founder" class="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5 relative">
+                        <div class="w-full h-80 sm:h-96 rounded-2xl bg-gradient-to-tr from-indigo-800 via-indigo-600 to-cyan-500 p-1 shadow-2xl relative overflow-hidden flex flex-col justify-end p-8">
+                            <div class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px]"></div>
+                            <div class="relative z-10 flex flex-col items-center text-center">
+                                <div class="w-28 h-28 rounded-full border-4 border-white/20 bg-slate-800 flex items-center justify-center text-5xl text-cyan-300 shadow-xl mb-4">
+                                    <i class="fa-solid fa-user-astronaut"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white tracking-tight">Serikbay Assel</h3>
+                                <p class="text-cyan-400 font-semibold text-xs tracking-widest uppercase mt-1" data-i18n="founder_role">Founder & Visionary</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7">
+                        <span class="text-cyan-400 font-bold text-xs uppercase tracking-wider" data-i18n="founder_section_tag">Founder's Vision</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-6" data-i18n="founder_heading">Building the Future of Education in Kazakhstan</h2>
+
+                        <div class="border-l-4 border-cyan-400 pl-6 py-2 mb-8 bg-slate-800/50 rounded-r-xl">
+                            <p class="text-base sm:text-lg italic text-slate-200 leading-relaxed" data-i18n="founder_quote">
+                                "Моё итоговое видение: FUTURE MAP должен стать не просто сайтом с тестом, а полноценной образовательной экосистемой, которая сопровождает подростка от выбора профессии до поступления в университет."
+                            </p>
+                            <p class="text-xs text-slate-400 mt-2 font-medium">— Serikbay Assel</p>
+                        </div>
+
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6" data-i18n="founder_bio">
+                            Every young person in Kazakhstan deserves clarity, accessible guidance, and transparent opportunities. FUTURE MAP is designed to bridge the gap between high school decisions, skill building, and financial support through grants.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-bullseye text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-white" data-i18n="founder_goal1_title">Clear Guidance</h4>
+                                    <p class="text-xs text-slate-400" data-i18n="founder_goal1_desc">Structured paths replacing uncertainty with actionable milestones.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-white" data-i18n="founder_goal2_title">Equal Opportunity</h4>
+                                    <p class="text-xs text-slate-400" data-i18n="founder_goal2_desc">Democratizing scholarship and state grant accessibility nationwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <div class="flex items-center space-x-2 text-white font-bold text-base mb-1">
+                        <i class="fa-solid fa-compass text-cyan-400"></i>
+                        <span>FUTURE MAP</span>
+                    </div>
+                    <p class="text-slate-500" data-i18n="footer_tagline">Find your direction. Build your future.</p>
+                </div>
+
+                <div class="text-center md:text-right text-slate-500">
+                    <p>© 2026 FUTURE MAP Ecosystem. Founder: <span class="text-slate-300 font-medium">Serikbay Assel</span>.</p>
+                    <p class="mt-1" data-i18n="footer_rights">Dedicated to empowering youth in Kazakhstan and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CAREER DETAIL MODAL -->
+    <div id="career-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 my-8">
+            <button onclick="closeCareerModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="career-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- GRANT DETAIL MODAL -->
+    <div id="grant-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+            <button onclick="closeGrantModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="grant-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOCALIZATION & APPLICATION LOGIC -->
+    <script>
+        // GLOBAL STATE
+        let currentLang = 'en';
+        let currentQuizIndex = 0;
+        let quizAnswers = [];
+        let selectedCategory = 'all';
+        let selectedCareerCategory = 'all';
+
+        // TRANSLATION DICTIONARIES
+        const i18n = {
+            en: {
+                nav_discovery: "Career Discovery",
+                nav_catalog: "Careers Catalog",
+                nav_grants: "Grants & Scholarships",
+                nav_ecosystem: "Ecosystem Vision",
+                nav_founder: "About Founder",
+                hero_badge: "Ecosystem for Kazakhstani Youth",
+                hero_title_1: "Find Your Direction.",
+                hero_title_2: "Build Your Future.",
+                hero_subtitle: "A platform that helps young people discover careers, explore education, and turn ambitions into action — from school bench to top universities and state grants.",
+                hero_cta_quiz: "Start Career Test",
+                hero_cta_catalog: "Explore Careers",
+                hero_cta_grants: "Explore Grants",
+                stat_professions: "Detailed Career Profiles",
+                stat_questions: "In-Depth Test Questions",
+                stat_localization: "3 Languages (ҚАЗ/ENG/РУС)",
+                stat_domains: "Vector Scoring Match",
+                quiz_section_subtitle: "Multi-Vector Career Profiler",
+                quiz_section_title: "Expanded Interactive Career Assessment",
+                quiz_section_desc: "Answer 10 scenario-based questions to evaluate your potential across Tech, Science, Business, Creative Arts, Public Policy, and Social Sciences.",
+                catalog_tag: "Comprehensive Database",
+                catalog_title: "Explore Future Professions",
+                catalog_subtitle: "Discover key responsibilities, UNT profile subjects, university pathways, salary expectations, and market growth outlook.",
+                career_search_ph: "Search careers or UNT subjects...",
+                grants_badge: "Regularly Updated System",
+                grants_title: "Grants & Scholarships in Kazakhstan",
+                grants_subtitle: "Find financial aid, targeted state educational grants, and merit scholarships for high school students and prospective undergraduates.",
+                grant_search_ph: "Search grants, majors...",
+                eco_subtitle: "Holistic Educational Vision",
+                eco_title: "The FUTURE MAP Ecosystem",
+                eco_desc: "Not just a quiz website, but a continuous guided ecosystem taking teenagers step-by-step from career discovery to university entry.",
+                step1_title: "Self & Career Discovery",
+                step1_desc: "Multi-vector psychometric tests and profiling to identify innate strengths and potential.",
+                step1_tag: "Phase 1",
+                step2_title: "Skill Roadmap",
+                step2_desc: "Tailored learning paths for key hard/soft skills required for chosen futuristic professions.",
+                step2_tag: "Phase 2",
+                step3_title: "University Matching",
+                step3_desc: "In-depth database of domestic (NU, KBTU, AITU) and international higher education hubs.",
+                step3_tag: "Phase 3",
+                step4_title: "Grant & Scholarship Hub",
+                step4_desc: "Direct assistance with UNT/IELTS targets, scholarship strategy, and submission deadlines.",
+                step4_tag: "Phase 4",
+                step5_title: "Mentorship & Network",
+                step5_desc: "Connecting students with industry mentors, university alumni, and peer communities.",
+                step5_tag: "Phase 5",
+                founder_section_tag: "Founder's Vision",
+                founder_heading: "Building the Future of Education in Kazakhstan",
+                founder_role: "Founder & Visionary",
+                founder_quote: "\"My final vision: FUTURE MAP should become not just a website with a quiz, but a full-fledged educational ecosystem that accompanies a teenager from career choice to university admission.\"",
+                founder_bio: "Every young person in Kazakhstan deserves clarity, accessible guidance, and transparent opportunities. FUTURE MAP is designed to bridge the gap between high school decisions, skill building, and financial support through grants.",
+                founder_goal1_title: "Clear Guidance",
+                founder_goal1_desc: "Structured paths replacing uncertainty with actionable milestones.",
+                founder_goal2_title: "Equal Opportunity",
+                founder_goal2_desc: "Democratizing scholarship and state grant accessibility nationwide.",
+                footer_tagline: "Find your direction. Build your future.",
+                footer_rights: "Dedicated to empowering youth in Kazakhstan and beyond.",
+                btn_next: "Next Question",
+                btn_prev: "Previous",
+                btn_results: "See Results",
+                btn_restart: "Retake Quiz",
+                modal_deadline: "Deadline",
+                modal_coverage: "Coverage",
+                modal_eligibility: "Eligibility",
+                modal_apply: "How to Apply",
+                cat_all: "All Categories",
+                cat_state: "State Grants",
+                cat_bolashak: "Bolashak & Int.",
+                cat_stem: "Tech & STEM",
+                cat_regional: "Regional / Social",
+                ccat_all: "All Domains",
+                ccat_tech: "IT & AI",
+                ccat_science: "Biotech & Medicine",
+                ccat_engineering: "Engineering & Energy",
+                ccat_creative: "Design & Media",
+                ccat_business: "Business & Finance",
+                ccat_social: "Policy, Law & Edu",
+                unt_subjects: "UNT Profile Subjects",
+                starting_salary: "Starting Salary Range",
+                demand_outlook: "Demand Outlook",
+                top_universities: "Top Universities (KZ)",
+                global_universities: "Global Universities"
+            },
+            kk: {
+                nav_discovery: "Мамандық Таңдау",
+                nav_catalog: "Мамандықтар Каталогы",
+                nav_grants: "Гранттар мен Стипендиялар",
+                nav_ecosystem: "Экожүйе Пайымы",
+                nav_founder: "Негізін Калаушы",
+                hero_badge: "Қазақстан Жастарына Арналған Экожүйе",
+                hero_title_1: "Бағытыңды тап.",
+                hero_title_2: "Болашағыңды құр.",
+                hero_subtitle: "Жастарға мамандық табуға, білім жүйесін зерттеуге және мақсаттарды іске асыруға көмектесетін бірегей платформа — мектеп қабырғасынан жоғары оқу орны мен гранттарға дейін.",
+                hero_cta_quiz: "Тестті Бастау",
+                hero_cta_catalog: "Мамандықтарды Қарау",
+                hero_cta_grants: "Гранттарды Қарау",
+                stat_professions: "Толық Мамандық Паспорты",
+                stat_questions: "Тереңдетілген Сұрақтар",
+                stat_localization: "3 Тілде (ҚАЗ/ENG/РУС)",
+                stat_domains: "Векторлық Сәйкестік",
+                quiz_section_subtitle: "Көпвекторлы Диагностика",
+                quiz_section_title: "Кеңейтілген Кәсіби Тест",
+                quiz_section_desc: "Ақпараттық технологиялар, медицина, инженерия, дизайн, бизнес және құқық салаларындағы әлеуетіңізді анықтау үшін 10 ситуациялық сұраққа жауап беріңіз.",
+                catalog_tag: "Анықтамалық База",
+                catalog_title: "Болашақ Мамандықтары",
+                catalog_subtitle: "Негізгі міндеттерді, ҰБТ профильдік пәндерін, ЖОО бағыттарын, бастапқы жалақы мен нарық сұранысын зерттеңіз.",
+                career_search_ph: "Мамандық немесе ҰБТ пәнін іздеу...",
+                grants_badge: "Жүйелі Жаңартылатын Жүйе",
+                grants_title: "Қазақстандағы Гранттар мен Стипендиялар",
+                grants_subtitle: "Мектеп оқушылары мен талапкерлерге арналған мемлекеттік білім беру гранттары, ректорлық стипендиялар мен халықаралық бағдарламалар.",
+                grant_search_ph: "Гранттар мен мамандықтарды іздеу...",
+                eco_subtitle: "Тұтас Білім Беру Пайымы",
+                eco_title: "FUTURE MAP Экожүйесі",
+                eco_desc: "Бұл жай ғана тест сайты емес, оқушыны мамандық таңдаудан бастап университетке түскенге дейін сүйемелдейтін толыққанды жүйе.",
+                step1_title: "Өзін-өзі & Мамандықты Тану",
+                step1_desc: "Оқушының туа біткен қабілеттерін анықтауға арналған психологиялық және векторлық тестілеу.",
+                step1_tag: "1 КЕЗЕҢ",
+                step2_title: "Дағдылар Картасы",
+                step2_desc: "Таңдалған заманауи мамандыққа қажетті hard/soft skill-дерді дамыту жоспары.",
+                step2_tag: "2 КЕЗЕҢ",
+                step3_title: "Университет Таңдау",
+                step3_desc: "Отандық (Назарбаев Университеті, КБТУ, AITU) және шетелдік ЖОО базасы.",
+                step3_tag: "3 КЕЗЕҢ",
+                step4_title: "Гранттар мен Стипендиялар",
+                step4_desc: "ҰБТ/IELTS нәтижелерін жақсарту және грантқа өтінім беру стратегиясы.",
+                step4_tag: "4 КЕЗЕҢ",
+                step5_title: "Менторлық & Қоғамдастық",
+                step5_desc: "Сала мамандарымен, студенттермен және түлектермен тәжірибе алмасу.",
+                step5_tag: "5 КЕЗЕҢ",
+                founder_section_tag: "Автордың Пайымы",
+                founder_heading: "Қазақстандағы Білім Беру Болашағын Құру",
+                founder_role: "Платформа Негізін Қалаушы",
+                founder_quote: "\"Моё итоговое видение: FUTURE MAP должен стать не просто сайтом с тестом, а полноценной образовательной экосистемой, которая сопровождает подростка от выбора профессии до поступления в университет.\"",
+                founder_bio: "Қазақстандағы әрбір жас айқын бағытқа, қолжетімді бағдарға және ашық мүмкіндіктерге лайықты. FUTURE MAP мектеп қабырғасынан бастап ЖОО-ға дейінгі аралықты біріктіреді.",
+                founder_goal1_title: "Айқын Бағыт",
+                founder_goal1_desc: "Белгісіздікті нақты мақсаттар мен қадамдармен алмастыру.",
+                founder_goal2_title: "Тен Мүмкіндіктер",
+                founder_goal2_desc: "Еліміздің барлық өңіріндегі оқушыларға гранттарды қолжетімді ету.",
+                footer_tagline: "Бағытыңды тап. Болашағыңды құр.",
+                footer_rights: "Қазақстан жастарын қолдауға арналған платформа.",
+                btn_next: "Келесі Сұрақ",
+                btn_prev: "Артқа",
+                btn_results: "Нәтижені Көру",
+                btn_restart: "Қайта Тапсыру",
+                modal_deadline: "Мерзімі",
+                modal_coverage: "Қамту Көлемі",
+                modal_eligibility: "Талаптар",
+                modal_apply: "Қалай Өтінім Беруге Болады",
+                cat_all: "Барлығы",
+                cat_state: "Мемлекеттік Гранттар",
+                cat_bolashak: "Болашақ және Шетел",
+                cat_stem: "IT & STEM",
+                cat_regional: "Өңірлік & Әлеуметтік",
+                ccat_all: "Барлық Салалар",
+                ccat_tech: "IT & AI",
+                ccat_science: "Биотех & Медицина",
+                ccat_engineering: "Инженерия & Энергетика",
+                ccat_creative: "Дизайн & Медиа",
+                ccat_business: "Бизнес & Қаржы",
+                ccat_social: "Құқық, Саясат & Білім",
+                unt_subjects: "ҰБТ Профильдік Пәндері",
+                starting_salary: "Бастапқы Жалақы Ауқымы",
+                demand_outlook: "Нарық Сұранысы",
+                top_universities: "Жетекші ЖОО (Қазақстан)",
+                global_universities: "Әлемдік ЖОО-лар"
+            },
+            ru: {
+                nav_discovery: "Выбор Профессии",
+                nav_catalog: "Каталог Профессий",
+                nav_grants: "Гранты и Стипендии",
+                nav_ecosystem: "Видение Экосистемы",
+                nav_founder: "Об Основателе",
+                hero_badge: "Экосистема для Молодежи Казахстана",
+                hero_title_1: "Найди свое направление.",
+                hero_title_2: "Построй свое будущее.",
+                hero_subtitle: "Платформа, которая помогает молодым людям открыть профессии, изучить образовательные пути и превратить амбиции в действия — от школьной скамьи до грантов в вузах.",
+                hero_cta_quiz: "Пройти Тест",
+                hero_cta_catalog: "Смотреть Профессии",
+                hero_cta_grants: "Смотреть Гранты",
+                stat_professions: "Детальных Профилей Профессий",
+                stat_questions: "Вопросов в Тесте",
+                stat_localization: "3 Языка (ҚАЗ/ENG/РУС)",
+                stat_domains: "Векторный Анализ",
+                quiz_section_subtitle: "Многовекторная Диагностика",
+                quiz_section_title: "Расширенный Профориентационный Тест",
+                quiz_section_desc: "Ответьте на 10 ситуационных вопросов, чтобы оценить ваш потенциал в сферах IT, медицины, инженерии, дизайна, бизнеса и права.",
+                catalog_tag: "Справочная База",
+                catalog_title: "Профессии Будущего",
+                catalog_subtitle: "Изучите обязанности, профильные предметы ЕНТ, университетские траектории, уровень зарплат и перспективность на рынке.",
+                career_search_ph: "Поиск профессии или предмета ЕНТ...",
+                grants_badge: "Регулярно Обновляемая Система",
+                grants_title: "Гранты и Стипендии в Казахстане",
+                grants_subtitle: "Каталог государственных грантов, ректорских стипендий и международных программ для школьников и абитуриентов из Казахстана.",
+                grant_search_ph: "Поиск грантов, специальностей...",
+                eco_subtitle: "Целостное Образовательное Видение",
+                eco_title: "Экосистема FUTURE MAP",
+                eco_desc: "Не просто сайт с тестом, а полноценная образовательная экосистема, сопровождающая подростка от выбора профессии до поступления в университет.",
+                step1_title: "Самопознание & Профессия",
+                step1_desc: "Многовекторное психологическое тестирование для выявления скрытых талантов.",
+                step1_tag: "1 ЭТАП",
+                step2_title: "Карта Навыков",
+                step2_desc: "Персональный план развития ключевых hard и soft skills для востребованных профессий.",
+                step2_tag: "2 ЭТАП",
+                step3_title: "Подбор Университета",
+                step3_desc: "Детальная база вузов Казахстана (НУ, КБТУ, AITU) и ведущих мировых университетов.",
+                step3_tag: "3 ЭТАП",
+                step4_title: "Центр Грантов",
+                step4_desc: "Стратегия подготовки к ЕНТ/IELTS и подача заявок на государственные и частные гранты.",
+                step4_tag: "4 ЭТАП",
+                step5_title: "Менторство & Сообщество",
+                step5_desc: "Общение с отраслевыми экспертами, студентами и выпускниками для обмена опытом.",
+                step5_tag: "5 ЭТАП",
+                founder_section_tag: "Видение Автора",
+                founder_heading: "Создавая Будущее Образования в Казахстане",
+                founder_role: "Основатель Платформы",
+                founder_quote: "\"Моё итоговое видение: FUTURE MAP должен стать не просто сайтом с тестом, а полноценной образовательной экосистемой, которая сопровождает подростка от выбора профессии до поступления в университет.\"",
+                founder_bio: "Каждый молодой человек в Казахстане заслуживает ясности, понятного ориентира и равных возможностей. FUTURE MAP объединяет выбор профессии, прокачку навыков и получение грантов.",
+                founder_goal1_title: "Ясный Ориентир",
+                founder_goal1_desc: "Замена неопределенности понятными шагами к цели.",
+                founder_goal2_title: "Равные Возможности",
+                founder_goal2_desc: "Доступность информации о грантах для школьников со всех регионов.",
+                footer_tagline: "Найди свое направление. Построй свое будущее.",
+                footer_rights: "Создано для поддержки молодежи Казахстана.",
+                btn_next: "Следующий Вопрос",
+                btn_prev: "Назад",
+                btn_results: "Посмотреть Результат",
+                btn_restart: "Пройти Заново",
+                modal_deadline: "Срок подачи",
+                modal_coverage: "Покрытие",
+                modal_eligibility: "Требования",
+                modal_apply: "Как Подать Заявку",
+                cat_all: "Все Категории",
+                cat_state: "Госгранты РК",
+                cat_bolashak: "Болашак и Межд.",
+                cat_stem: "IT и STEM",
+                cat_regional: "Региональные / Соц.",
+                ccat_all: "Все Сферы",
+                ccat_tech: "IT и ИИ",
+                ccat_science: "Биотех и Медицина",
+                ccat_engineering: "Инженерия и Энергетика",
+                ccat_creative: "Дизайн и Медиа",
+                ccat_business: "Бизнес и Финансы",
+                ccat_social: "Право, Политика и Образование",
+                unt_subjects: "Профильные Предметы ЕНТ",
+                starting_salary: "Стартовый Уровень Зарплаты",
+                demand_outlook: "Перспективы Нарыка",
+                top_universities: "Ведущие Вузы (Казахстан)",
+                global_universities: "Мировые Университеты"
+            }
+        };
+
+        // 10 EXPANDED SCENARIO QUIZ QUESTIONS
+        const quizQuestions = [
+            {
+                q: {
+                    en: "1. You are assigned to lead a regional youth hackathon or project competition. What role do you naturally assume?",
+                    kk: "1. Сізге аймақтық жастар хакатонын немесе жобалық конкурсын басқару тапсырылды. Сіз қай рөлді таңдайсыз?",
+                    ru: "1. Вам поручили возглавить региональный хакатон или проектный конкурс. Какую роль вы выберете?"
+                },
+                options: [
+                    { text: { en: "Lead software architect: writing code and setting up cloud servers", kk: "Бас IT-архитектор: код жазу, серверлерді орнату", ru: "Главный IT-архитектор: написание кода и настройка серверов" }, vector: "tech" },
+                    { text: { en: "Creative director: designing branding, UI interfaces, and visual assets", kk: "Креативті директор: брендинг, интерфейс пен визуализация", ru: "Креативный директор: создание брендинга, UI и презентаций" }, vector: "creative" },
+                    { text: { en: "Project manager: pitching to sponsors, managing budgets and timelines", kk: "Жоба менеджері: демеушілермен келіссөздер, бюджет пен мерзімдер", ru: "Проектный менеджер: питчинг спонсорам, управление бюджетом" }, vector: "business" },
+                    { text: { en: "Lead scientific researcher: testing biological/environmental samples in a lab", kk: "Бас ғылыми зерттеуші: лабораторияда биологялық үлгілерді талдау", ru: "Главный исследователь: лабораторный анализ био-образцов" }, vector: "science" }
+                ]
+            },
+            {
+                q: {
+                    en: "2. Which UNT subject combination or academic interest excites you the most in school?",
+                    kk: "2. Мектепте ҰБТ пәндерінің қай комбинациясы немесе бағыты сізге ең жақын?",
+                    ru: "2. Какое сочетание предметов ЕНТ или школьных дисциплин вам наиболее интересно?"
+                },
+                options: [
+                    { text: { en: "Mathematics & Physics (Информатика / Инженерия)", kk: "Математика мен Физика (Информатика / Инженерия)", ru: "Математика и Физика (Информатика / Инженерия)" }, vector: "tech" },
+                    { text: { en: "Biology & Chemistry (Медицина / Биотехнология)", kk: "Биология мен Химия (Медицина / Биотехнология)", ru: "Биология и Химия (Медицина / Биотехнология)" }, vector: "science" },
+                    { text: { en: "World History & World Geography / Foreign Language (Право / Дипломатия)", kk: "Дүниежүзі тарихы мен Ағылшын тілі / Құқық", ru: "Всемирная История и Иностранный Язык / Право" }, vector: "social" },
+                    { text: { en: "Mathematics & Geography / Foreign Language (Бизнес / Экономика)", kk: "Математика мен География / Экономика", ru: "Математика и География / Экономика и Бизнес" }, vector: "business" }
+                ]
+            },
+            {
+                q: {
+                    en: "3. If you were granted $50,000 to solve a major local issue in Kazakhstan, what project would you launch?",
+                    kk: "3. Қазақстандағы жергілікті мәселені шешуге $50,000 грант берілсе, қандай жобаны қолға алар едіңіз?",
+                    ru: "3. Если бы вам выделили грант $50,000 на решение проблемы в Казахстане, какой проект вы бы запустили?"
+                },
+                options: [
+                    { text: { en: "An AI platform automating career guidance and local job matching", kk: "Жұмыспен қамту мен кәсіби бағдар беруші АИ платформасы", ru: "ИИ-платформа для автоматизации профориентации и вакансий" }, vector: "tech" },
+                    { text: { en: "Solar energy micro-grid and clean water filtration system for villages", kk: "Ауылдарға арналған күн энергиясы мен су тазарту жүйесі", ru: "Солнечные микро-электростанции и фильтрация воды для аулов" }, vector: "engineering" },
+                    { text: { en: "A digital media agency storytelling Kazakh culture through 3D art and games", kk: "Қазақ мәдениетін 3D және ойындар арқылы насихаттайтын медиа", ru: "Медиа-агентство, популяризирующее культуру через 3D и игры" }, vector: "creative" },
+                    { text: { en: "A free legal and educational advocacy center for rural students", kk: "Ауыл оқушыларына арналған тегін құқықтық мен білім беру орталығы", ru: "Бесплатный правовой и образовательный центр для школьников" }, vector: "social" }
+                ]
+            },
+            {
+                q: {
+                    en: "4. When reading news or watching documentaries, which topics capture your attention first?",
+                    kk: "4. Жаңалықтар немесе деректі фильмдер көргенде, қай тақырып сізді көбірек баурап алады?",
+                    ru: "4. Смотря новости или документальные фильмы, какая тема привлекает вас больше всего?"
+                },
+                options: [
+                    { text: { en: "Breakthroughs in Neural Networks, Quantum Computing, and Cybersecurity", kk: "Нейрожелілер, кванттық есептеулер және киберқауіпсіздік", ru: "Прорывы в нейросетях, квантовых компьютерах и кибербезопасности" }, vector: "tech" },
+                    { text: { en: "Gene editing (CRISPR), mRNA vaccines, and regenerative medicine", kk: "Гендік инженерия (CRISPR), мРНК вакциналар, медицина", ru: "Генная инженерия (CRISPR), мРНК-вакцины и медицина" }, vector: "science" },
+                    { text: { en: "Global stock markets, fintech unicorns, and venture capital deals", kk: "Әлемдік қор нарығы, финтех стартаптар мен венчурлік капитал", ru: "Мировые фондовые рынки, финтех-стартапы и венчурные инвестиции" }, vector: "business" },
+                    { text: { en: "International diplomacy, educational reform, and public policy debate", kk: "Халықаралық дипломатия, білім беру реформасы, заңнама", ru: "Международная дипломатия, реформы образования и публичные дебаты" }, vector: "social" }
+                ]
+            },
+            {
+                q: {
+                    en: "5. What type of daily tools or software would you most enjoy working with professionally?",
+                    kk: "5. Күнделікті кәсіби жұмысыңызда қандай құралдармен жұмыс істегенді ұнатасыз?",
+                    ru: "5. С какими профессиональными инструментами вам было бы интереснее всего работать?"
+                },
+                options: [
+                    { text: { en: "Code editors (VS Code), Terminal, Python libraries, SQL databases", kk: "Код редакторлары, Python кітапханалары, SQL дерекқорлары", ru: "Редакторы кода (VS Code), Python, базы данных SQL" }, vector: "tech" },
+                    { text: { en: "3D CAD modeling software, microcontrollers (Arduino/Raspberry Pi)", kk: "3D CAD модельдеу бағдарламалары, микроконтроллерлер", ru: "3D CAD проектирование, микроконтроллеры и робототехника" }, vector: "engineering" },
+                    { text: { en: "Figma, Adobe Creative Cloud, Blender, Unreal Engine 5", kk: "Figma, Adobe Creative Cloud, Blender, Unreal Engine 5", ru: "Figma, Adobe Creative Cloud, Blender, Unreal Engine 5" }, vector: "creative" },
+                    { text: { en: "Financial dashboards, Excel spreadsheets, CRM tools, pitch decks", kk: "Қаржылық аналитика, Excel, CRM жүйелері, бизнес-презентациялар", ru: "Финансовые дашборды, Excel, CRM-системы и бизнес-презентации" }, vector: "business" }
+                ]
+            },
+            {
+                q: {
+                    en: "6. How do you approach solving a complex problem that has no clear instructions?",
+                    kk: "6. Нақты нұсқаулығы жоқ күрделі мәселені қалай шешесіз?",
+                    ru: "6. Как вы подходите к решению сложной задачи, не имеющей четких инструкций?"
+                },
+                options: [
+                    { text: { en: "I write algorithmic rules, run automated tests, and isolate data bugs", kk: "Алгоритмдер жазамын, авто-тесттер өткізіп, қателерді іздеймін", ru: "Пишу алгоритмы, запускаю тесты и изолирую ошибки данных" }, vector: "tech" },
+                    { text: { en: "I formulate scientific hypotheses and conduct controlled experiments", kk: "Ғылыми гипотеза құрып, бақыланатын эксперименттер жүргіземін", ru: "Формулирую гипотезу и провожу контролируемые эксперименты" }, vector: "science" },
+                    { text: { en: "I organize a brainstorm session and sketch mindmaps and prototypes", kk: "Миға шабуыл ұйымдастырып, прототиптер мен эскиздер сызамын", ru: "Организую мозговой штурм, рисую эскизы и прототипы" }, vector: "creative" },
+                    { text: { en: "I negotiate with key stakeholders and delegate responsibilities", kk: "Серіктестермен келіссөз жүргізіп, тапсырмаларды бөліп беремін", ru: "Провожу переговоры со стейкхолдерами и делегирую задачи" }, vector: "business" }
+                ]
+            },
+            {
+                q: {
+                    en: "7. Which futuristic career trend sounds most appealing for your personal growth?",
+                    kk: "7. Жеке дамуыңыз үшін болашақтың қай тренді сізге ең тартымды көрінеді?",
+                    ru: "7. Тренд какой профессии будущего кажется вам наиболее привлекательным?"
+                },
+                options: [
+                    { text: { en: "Building autonomous AI agents and intelligent robotics", kk: "Автономды АИ агенттері мен интеллектуалды робототехника", ru: "Создание автономных ИИ-агентов и умных роботов" }, vector: "tech" },
+                    { text: { en: "Designing zero-emission smart cities and hydrogen power grids", kk: "Экологиялық таза ақылды қалалар мен сутегі энергетикасы", ru: "Проектирование экологичных умных городов и водородной энергетики" }, vector: "engineering" },
+                    { text: { en: "Developing mRNA therapies, genetic bio-ceuticals, and longevity tools", kk: "Гендік терапия, биотехнология және ұзақ өмір сүру медицинасы", ru: "Разработка генной терапии, биотехнологий и медицины долголетия" }, vector: "science" },
+                    { text: { en: "Architecting international economic trade agreements and digital law", kk: "Халықаралық экономикалық келісімдер мен цифрлық құқық", ru: "Разработка международных торговых соглашений и цифрового права" }, vector: "social" }
+                ]
+            },
+            {
+                q: {
+                    en: "8. What kind of impact do you want your work to leave on society?",
+                    kk: "8. Сіздің жұмысыңыз қоғамда қандай із қалдырғанын қалайсыз?",
+                    ru: "8. Какой след вы хотите оставить в обществе своей профессиональной деятельностью?"
+                },
+                options: [
+                    { text: { en: "Automating tedious work so humans can focus on creative tasks", kk: "Адамдар шығармашылыққа көшуі үшін ауыр жұмыстарды автоматтандыру", ru: "Автоматизация рутины, чтобы люди могли заниматься творчеством" }, vector: "tech" },
+                    { text: { en: "Curing chronic diseases and extending healthy human lifespan", kk: "Созылмалы ауруларды емдеу және адам өмірін ұзарту", ru: "Излечение опасных болезней и продление здоровой жизни людей" }, vector: "science" },
+                    { text: { en: "Inspiring millions through emotional art, stories, and immersive products", kk: "Миллиондаған адамды өнер, оқиғалар мен дизайнмен қанаттандыру", ru: "Вдохновение миллионов через искусство, сторителлинг и дизайн" }, vector: "creative" },
+                    { text: { en: "Creating thousands of high-paying jobs and strong business infrastructure", kk: "Жоғары жалақылы жұмыс орындарын ашу және экономиканы дамыту", ru: "Создание тысяч рабочих мест и мощной бизнес-инфраструктуры" }, vector: "business" }
+                ]
+            },
+            {
+                q: {
+                    en: "9. How do you prefer to spend your free time acquiring new skills?",
+                    kk: "9. Жаңа дағдыларды меңгеру үшін бос уақытыңызды қалай өткізгенді қалайсыз?",
+                    ru: "9. Как вы предпочитаете проводить свободное время для освоения новых навыков?"
+                },
+                options: [
+                    { text: { en: "Completing coding tutorials, building apps, or exploring GitHub repos", kk: "Кодтау сабақтарын өту, қолданбалар жасау, GitHub репозиторийлері", ru: "Прохождение курсов по программированию, создание приложений, GitHub" }, vector: "tech" },
+                    { text: { en: "Reading scientific research journals, articles on biology and physics", kk: "Ғылыми мақалалар, биология мен физика туралы журналдар оқу", ru: "Чтение научных журналов, статей по биологии и физике" }, vector: "science" },
+                    { text: { en: "Drawing, editing video reels, composing music, or designing interfaces", kk: "Сурет салу, видео монтаждау, музыка жазу, интерфейс дизайны", ru: "Рисование, монтаж видео, сочинение музыки, дизайн интерфейсов" }, vector: "creative" },
+                    { text: { en: "Listening to business podcasts, startup case studies, and market books", kk: "Бизнес подкасттар, стартап кейстері және қаржылық кітаптар оқу", ru: "Прослушивание бизнес-подкастов, разбор стартап-кейсов и книг" }, vector: "business" }
+                ]
+            },
+            {
+                q: {
+                    en: "10. Which environment would bring you the greatest job satisfaction after university?",
+                    kk: "10. Университетті аяқтағаннан кейін қандай жұмыс орны сізге ең үлкен қанағаттану сыйлайды?",
+                    ru: "10. Какая рабочая среда принесет вам наибольшее удовлетворение после университета?"
+                },
+                options: [
+                    { text: { en: "A fast-scaling AI startup or major Big-Tech software corporation", kk: "Жылдам өсіп келе жатқан АИ стартапы немесе ірі Big-Tech компаниясы", ru: "Быстрорастущий ИИ-стартап или крупная Big-Tech корпорация" }, vector: "tech" },
+                    { text: { en: "A high-tech medical research clinic or biotechnology laboratory", kk: "Жоғары технологиялық медициналық клиника немесе биотех орталығы", ru: "Высокотехнологичная медицинская клиника или биотех-лаборатория" }, vector: "science" },
+                    { text: { en: "A modern architectural studio, game dev team, or digital media agency", kk: "Заманауи архитектуралық студия, game dev командасы, медиа", ru: "Современная архитектурная студия, геймдев-команда или медиа" }, vector: "creative" },
+                    { text: { en: "An international diplomatic mission, ministry, or social advocacy body", kk: "Халықаралық дипломатиялық миссия, министрлік немесе заң бюросы", ru: "Международная дипломатическая миссия, министерство или бюро" }, vector: "social" }
+                ]
+            }
+        ];
+
+        // 15 EXPANDED CAREER PROFILES CATALOG
+        const careerProfilesData = [
+            {
+                id: "cp-1",
+                category: "tech",
+                title: { en: "AI & Machine Learning Engineer", kk: "Жасанды Интеллект & ML Инженері", ru: "Инженер по ИИ и Машинному Обучению" },
+                badge: "High Growth / High Demand",
+                untSubjects: { en: "Mathematics + Physics / Informatics", kk: "Математика + Физика / Информатика", ru: "Математика + Физика / Информатика" },
+                startingSalary: "700,000 - 1,500,000 KZT / mo ($1,500 - $3,200)",
+                outlook: "Extreme Growth (+35% global annual demand)",
+                summary: {
+                    en: "Builds intelligent neural networks, generative AI models, and automated reasoning systems transforming modern industries.",
+                    kk: "Өнеркәсіп пен бизнесті түрлендіретін нейрондық желілер, генеративті АИ модельдері мен интеллектуалды жүйелерді жасайды.",
+                    ru: "Разрабатывает нейросети, модели генеративного ИИ и системы автоматизированного принятия решений."
+                },
+                kzUniversities: ["Nazarbayev University", "Astana IT University (AITU)", "KBTU", "SDU University"],
+                globalUniversities: ["Stanford University", "MIT", "ETH Zurich", "Carnegie Mellon"],
+                skills: ["Python, PyTorch, TensorFlow", "Linear Algebra & Calculus", "NLP & Computer Vision", "System Architecture"]
+            },
+            {
+                id: "cp-2",
+                category: "tech",
+                title: { en: "Cybersecurity Specialist & Ethical Hacker", kk: "Киберқауіпсіздік Маманы", ru: "Специалист по Кибербезопасности" },
+                badge: "Critical Infrastructure",
+                untSubjects: { en: "Mathematics + Informatics", kk: "Математика + Информатика", ru: "Математика + Информатика" },
+                startingSalary: "600,000 - 1,200,000 KZT / mo ($1,300 - $2,600)",
+                outlook: "High Growth (+28% demand in Central Asia)",
+                summary: {
+                    en: "Protects financial networks, state infrastructure, and private data against cyber attacks and system breaches.",
+                    kk: "Қаржылық желілерді, мемлекеттік инфрақұрылымды және деректерді кибершабуылдардан қорғайды.",
+                    ru: "Защищает финансовые сети, государственные структуры и данные от кибератак и взломов."
+                },
+                kzUniversities: ["AITU", "KBTU", "IITU (МУИТ)", "ENU (Гумилев)"],
+                globalUniversities: ["UC Berkeley", "Georgia Tech", "Royal Holloway London"],
+                skills: ["Network Security", "Penetration Testing", "Cryptography", "Incident Response"]
+            },
+            {
+                id: "cp-3",
+                category: "science",
+                title: { en: "Biotechnology & Genetic Specialist", kk: "Биотехнология және Генетика Маманы", ru: "Специалист по Биотехнологиям и Генетике" },
+                badge: "Innovation & Health",
+                untSubjects: { en: "Biology + Chemistry", kk: "Биология + Химия", ru: "Биология + Химия" },
+                startingSalary: "450,000 - 950,000 KZT / mo ($1,000 - $2,000)",
+                outlook: "High Growth (Kazakhstan bio-pharma expansion)",
+                summary: {
+                    en: "Researches gene therapy, bio-pharmaceuticals, molecular genetics, and agricultural crop resilience.",
+                    kk: "Гендік терапия, био-фармацевтика, молекулалық генетика және ауыл шаруашылығы дақылдарының төзімділігін зерттейді.",
+                    ru: "Исследует генную терапию, биофармацевтику, молекулярную генетику и устойчивость с/х культур."
+                },
+                kzUniversities: ["Nazarbayev University", "KazNU (Farabi)", "KazATU (Seifullin)", "Eurasian National University"],
+                globalUniversities: ["Harvard University", "Cambridge", "Wageningen University"],
+                skills: ["PCR & DNA Sequencing", "Bioinformatics", "Cell Culture", "Laboratory Compliance"]
+            },
+            {
+                id: "cp-4",
+                category: "science",
+                title: { en: "Medical Doctor / Robotic Surgeon", kk: "Дәрігер / Хирург", ru: "Врач / Роботизированный Хирург" },
+                badge: "High Social Value",
+                untSubjects: { en: "Biology + Chemistry", kk: "Биология + Химия", ru: "Биология + Химия" },
+                startingSalary: "400,000 - 1,100,000 KZT / mo ($900 - $2,400)",
+                outlook: "Stable High Demand nationwide",
+                summary: {
+                    en: "Diagnoses illnesses, performs high-precision surgical interventions, and utilizes robotic medical equipment.",
+                    kk: "Ауруларды анықтайды, жоғары дәлдіктегі хирургиялық оталарды жасап, роботтандырылған медициналық жабдықтарды қолданады.",
+                    ru: "Диагностирует заболевания, проводит высокоточные операции и использует роботизированное оборудование."
+                },
+                kzUniversities: ["Astana Medical University", "KazNMU (Asfendiyarov)", "NU School of Medicine", "Karaganda Med University"],
+                globalUniversities: ["Johns Hopkins", "Oxford Medicine", "Karolinska Institute"],
+                skills: ["Clinical Diagnostics", "Surgical Precision", "Patient Empathy", "Emergency Medicine"]
+            },
+            {
+                id: "cp-5",
+                category: "engineering",
+                title: { en: "Renewable Energy & Green Tech Engineer", kk: "Жаңартылатын Энергия Инженері", ru: "Инженер ВИЭ и Зеленых Технологий" },
+                badge: "ESG & Sustainability",
+                untSubjects: { en: "Mathematics + Physics", kk: "Математика + Физика", ru: "Математика + Физика" },
+                startingSalary: "500,000 - 1,100,000 KZT / mo ($1,100 - $2,400)",
+                outlook: "Rapid Growth (Targeting Kazakhstan Energy Transition)",
+                summary: {
+                    en: "Designs wind farms, solar energy complexes, green hydrogen storage, and sustainable industrial grids.",
+                    kk: "Жел және күн электр станцияларын, «жасыл» сутегі қоймаларын және экологиялық тораптарды жобалайды.",
+                    ru: "Проектирует ветровые и солнечные электростанции, хранилища зеленого водорода и эко-сети."
+                },
+                kzUniversities: ["Nazarbayev University", "KBTU", "Satbayev University", "AUES (АУЭС)"],
+                globalUniversities: ["TU Delft", "DTU Denmark", "UC Berkeley"],
+                skills: ["Power Systems CAD", "Thermodynamics", "Grid Integration", "Environmental Assessment"]
+            },
+            {
+                id: "cp-6",
+                category: "engineering",
+                title: { en: "Robotics & Automation Engineer", kk: "Робототехника және Автоматтандыру Инженері", ru: "Инженер Робототехники и Автоматизации" },
+                badge: "Industrial Innovation",
+                untSubjects: { en: "Mathematics + Physics", kk: "Математика + Физика", ru: "Математика + Физика" },
+                startingSalary: "550,000 - 1,250,000 KZT / mo ($1,200 - $2,700)",
+                outlook: "High Growth (+22% industrial adoption)",
+                summary: {
+                    en: "Develops autonomous industrial robots, drones, smart manufacturing systems, and IoT hardware.",
+                    kk: "Өндірістік роботтарды, дрондарды, ақылды зауыттар мен IoT құрылғыларын жобалайды және бағдарламалайды.",
+                    ru: "Создает промышленных роботов, дронов, умные фабрики и системы IoT."
+                },
+                kzUniversities: ["Nazarbayev University", "Satbayev University", "KBTU", "AITU"],
+                globalUniversities: ["Carnegie Mellon", "ETH Zurich", "University of Tokyo"],
+                skills: ["Embedded C/C++", "ROS (Robot Operating System)", "Mechatronics", "Control Systems"]
+            },
+            {
+                id: "cp-7",
+                category: "creative",
+                title: { en: "UI/UX & Digital Product Designer", kk: "UI/UX & Өнім Дизайнері", ru: "UI/UX Дизайнер Цифровых Продуктов" },
+                badge: "High Creative Demand",
+                untSubjects: { en: "Creative Exam (Сурет/Дизайн) OR Math + Geography", kk: "Шығармашылық емтихан / Математика + География", ru: "Творческий экзамен / Математика + География" },
+                startingSalary: "450,000 - 1,000,000 KZT / mo ($1,000 - $2,200)",
+                outlook: "Consistent High Demand",
+                summary: {
+                    en: "Designs intuitive mobile apps, digital banking interfaces, and web platforms centered around user experience.",
+                    kk: "Интуитивті мобильді қолданбалар, цифрлық банк интерфейстері мен веб-платформалар дизайнын жасайды.",
+                    ru: "Проектирует удобные мобильные приложения, сервисы онлайн-банкинга и веб-платформы."
+                },
+                kzUniversities: ["KazNAA (Zhurgenov)", "SDU University", "Turan University", "KAZGUU"],
+                globalUniversities: ["Parsons School of Design", "Royal College of Art", "RMIT"],
+                skills: ["Figma & Design Systems", "User Research & Testing", "Wireframing", "Interaction Design"]
+            },
+            {
+                id: "cp-8",
+                category: "creative",
+                title: { en: "Game Developer & 3D Environment Artist", kk: "Ойын Әзірлеуші & 3D Дизайнер", ru: "Разработчик Игр и 3D-Художник" },
+                badge: "Global Remote Career",
+                untSubjects: { en: "Mathematics + Informatics OR Creative Exam", kk: "Математика + Информатика / Шығармашылық", ru: "Математика + Информатика / Творческий" },
+                startingSalary: "500,000 - 1,300,000 KZT / mo ($1,100 - $2,800)",
+                outlook: "Rapid Global Expansion",
+                summary: {
+                    en: "Builds immersive video games, virtual reality experiences, and real-time 3D simulation environments.",
+                    kk: "Бейнеойындар, виртуалды шындық (VR) жобалары мен 3D симуляцияларды әзірлейді.",
+                    ru: "Создает видеоигры, виртуальные миры (VR) и 3D-симуляции."
+                },
+                kzUniversities: ["AITU", "IITU", "SDU", "KazNAA"],
+                globalUniversities: ["DigiPen", "USC Interactive Media", "Utrecht University"],
+                skills: ["Unreal Engine 5 / Unity", "C# / C++", "Blender & Maya", "3D Shading & Physics"]
+            },
+            {
+                id: "cp-9",
+                category: "business",
+                title: { en: "Fintech & Quantitative Financial Analyst", kk: "Финтех & Қаржы Талдаушысы", ru: "Финтех и Количественный Финансовый Аналитик" },
+                badge: "High Earning Potential",
+                untSubjects: { en: "Mathematics + Geography / Foreign Language", kk: "Математика + География / Ағылшын тілі", ru: "Математика + География / Иностранный язык" },
+                startingSalary: "600,000 - 1,400,000 KZT / mo ($1,300 - $3,000)",
+                outlook: "High Growth (Kazakhstan Fintech Hub)",
+                summary: {
+                    en: "Evaluates corporate investments, financial algorithms, risk models, and banking ecosystems.",
+                    kk: "Корпоративтік инвестицияларды, қаржылық алгоритмдерді, тәуекел модельдері мен банк жүйелерін талдайды.",
+                    ru: "Оценивает корпоративные инвестиции, финансовые алгоритмы, модели рисков и банковские продукты."
+                },
+                kzUniversities: ["KIMEP University", "Nazarbayev University", "KBTU Business School", "AlmaU"],
+                globalUniversities: ["LSE (London School of Economics)", "Wharton (UPenn)", "NYU Stern"],
+                skills: ["Financial Modeling", "Python / R Data Analysis", "Corporate Finance", "Risk Assessment"]
+            },
+            {
+                id: "cp-10",
+                category: "business",
+                title: { en: "Tech Product Manager & Entrepreneur", kk: "IT Продукт Менеджері & Кәсіпкер", ru: "Продукт-Менеджер и IT-Предприниматель" },
+                badge: "Leadership & Ventures",
+                untSubjects: { en: "Mathematics + Foreign Language / Geography", kk: "Математика + Шет тілі / География", ru: "Математика + Иностранный язык / География" },
+                startingSalary: "650,000 - 1,600,000 KZT / mo ($1,400 - $3,400)",
+                outlook: "Very High Demand",
+                summary: {
+                    en: "Leads cross-functional tech teams, defines product vision, roadmap strategies, and scales tech startups.",
+                    kk: "IT командаларды басқарады, өнімнің стратегиясын айқындайды және стартаптарды дамытады.",
+                    ru: "Руководит IT-командами, определяет стратегию продукта и масштабирует стартапы."
+                },
+                kzUniversities: ["KIMEP", "NU", "AlmaU", "KBTU"],
+                globalUniversities: ["Stanford GSB", "INSEAD", "Harvard Business School"],
+                skills: ["Agile/Scrum", "Product Analytics", "Strategic Planning", "User Value Proposition"]
+            },
+            {
+                id: "cp-11",
+                category: "social",
+                title: { en: "International Diplomat & Public Policy Lead", kk: "Дипломат & Мемлекеттік Саясат Маманы", ru: "Международный Дипломат и Эксперт Госуправления" },
+                badge: "Global Governance",
+                untSubjects: { en: "World History + Foreign Language / Geography", kk: "Дүниежүзі тарихы + Шет тілі / География", ru: "Всемирная история + Иностранный язык" },
+                startingSalary: "450,000 - 1,000,000 KZT / mo ($1,000 - $2,200)",
+                outlook: "Stable Strategic Role",
+                summary: {
+                    en: "Represents national interests abroad, negotiates international agreements, and drafts public policies.",
+                    kk: "Халықаралық келіссөздер жүргізеді, ел мүддесін шетелде білдіреді және мемлекеттік бағдарламалар әзірлейді.",
+                    ru: "Представляет интересы страны за рубежом, ведет переговоры и разрабатывает законы."
+                },
+                kzUniversities: ["KAZGUU (M Narikbayev)", "KazNU (Farabi)", "Eurasian National University", "KIMEP"],
+                globalUniversities: ["Sciences Po Paris", "Georgetown University", "Harvard Kennedy School"],
+                skills: ["International Law", "Multilingual Negotiation", "Policy Analysis", "Diplomatic Protocol"]
+            },
+            {
+                id: "cp-12",
+                category: "social",
+                title: { en: "Cyber Lawyer & Corporate Legal Counsel", kk: "Кибер-Заңгер & Корпоративтік Кеңесші", ru: "Кибер-Юрист и Корпоративный Юрист" },
+                badge: "Emerging Domain",
+                untSubjects: { en: "World History + Human and Society (Человек. Общество. Право)", kk: "Дүниежүзі тарихы + Адам. Қоғам. Құқық", ru: "Всемирная история + Человек. Общество. Право" },
+                startingSalary: "500,000 - 1,200,000 KZT / mo ($1,100 - $2,600)",
+                outlook: "High Growth (+25% digital law adoption)",
+                summary: {
+                    en: "Specializes in digital IP, AI regulations, corporate contracts, data privacy protection, and tech law.",
+                    kk: "Цифрлық авторлық құқық, АИ реттеу, корпоративтік келісімшарттар және деректерді қорғау заңнамасын реттейді.",
+                    ru: "Специализируется на цифровом праве, регулировании ИИ, защиты данных и корпоративных сделках."
+                },
+                kzUniversities: ["KAZGUU University", "KazNU", "ENU", "KIMEP Law School"],
+                globalUniversities: ["Harvard Law", "King's College London", "Leiden University"],
+                skills: ["Contractual Law", "IP & Data Privacy", "Litigation & Dispute Resolution", "Tech Regulation"]
+            },
+            {
+                id: "cp-13",
+                category: "engineering",
+                title: { en: "Civil Engineer & Sustainable Urban Planner", kk: "Құрылыс Инженері & Урбанист", ru: "Инженер-Строитель и Урбанист" },
+                badge: "Infrastructure & Cities",
+                untSubjects: { en: "Mathematics + Physics", kk: "Математика + Физика", ru: "Математика + Физика" },
+                startingSalary: "450,000 - 1,000,000 KZT / mo ($1,000 - $2,200)",
+                outlook: "Steady High Demand (Kazakhstan infrastructure projects)",
+                summary: {
+                    en: "Designs modern earthquake-resistant bridges, smart city transport systems, and eco-friendly buildings.",
+                    kk: "Жер сілкінісіне төзімді ғимараттарды, ақылды қалалық көлік тораптарын жобалайды.",
+                    ru: "Проектирует сейсмостойкие здания, умные транспортные системы и инфраструктуру городов."
+                },
+                kzUniversities: ["Satbayev University", "KazGASA (КазГАСА)", "Nazarbayev University", "ENU"],
+                globalUniversities: ["Imperial College London", "NUS Singapore", "TUM Germany"],
+                skills: ["Structural BIM / Revit", "Geotechnical Engineering", "Urban Masterplanning", "Project Management"]
+            },
+            {
+                id: "cp-14",
+                category: "social",
+                title: { en: "EdTech Innovator & Educational Director", kk: "EdTech Инноваторы & Білім беру Директоры", ru: "Инноватор в EdTech и Директор по Образованию" },
+                badge: "Ecosystem Building",
+                untSubjects: { en: "Mathematics + Foreign Language OR History + Lang", kk: "Математика + Шет тілі / Тарих", ru: "Математика + Иностранный язык / История" },
+                startingSalary: "400,000 - 900,000 KZT / mo ($900 - $2,000)",
+                outlook: "High Transformation Demand",
+                summary: {
+                    en: "Creates personalized online learning ecosystems, gamified curricula, and modern school standards.",
+                    kk: "Заманауи онлайн білім беру экожүйелерін, геймификацияланған бағдарламаларды әзірлейді.",
+                    ru: "Разрабатывает персонализированные образовательные экосистемы и программы обучения."
+                },
+                kzUniversities: ["KazNPU (Abai)", "NU Graduate School of Education", "SDU", "KazNU"],
+                globalUniversities: ["Teachers College Columbia", "UCL Institute of Education", "Stanford"],
+                skills: ["Curriculum Design", "Learning Analytics", "Pedagogical Leadership", "Gamification"]
+            },
+            {
+                id: "cp-15",
+                category: "business",
+                title: { en: "Global Supply Chain & Logistics Director", kk: "Логистика және Жеткізу Тізбегі Директоры", ru: "Директор по Логистике и Снабжению" },
+                badge: "Kazakhstan Transit Hub",
+                untSubjects: { en: "Mathematics + Geography", kk: "Математика + География", ru: "Математика + География" },
+                startingSalary: "500,000 - 1,300,000 KZT / mo ($1,100 - $2,800)",
+                outlook: "High Growth (Middle Corridor Eurasian transit)",
+                summary: {
+                    en: "Manages Eurasian cross-border trade corridors, automated warehousing, and international freight networks.",
+                    kk: "Еуразиялық транзиттік дәліздерді, автоматтандырылған қоймалар мен жүк тасымал желілерін басқарады.",
+                    ru: "Управляет евразийскими транзитными коридорами, складской автоматизацией и логистикой."
+                },
+                kzUniversities: ["KBTU", "KIMEP", "Academy of Logistics and Transport (ALT)", "AlmaU"],
+                globalUniversities: ["MIT Supply Chain", "Erasmus University Rotterdam", "Kühne Logistics University"],
+                skills: ["Supply Chain Analytics", "Customs & Trade Regulations", "ERP / SAP Systems", "Fleet Management"]
+            }
+        ];
+
+        // GRANTS DATA (Existing structured)
+        const grantsData = [
+            {
+                id: "grant-1",
+                category: "state",
+                title: {
+                    en: "Targeted State Educational Grant (General UNT)",
+                    kk: "Жалпы Мемлекеттік Білім Беру Гранты (ҰБТ)",
+                    ru: "Общий Государственный Образовательный Грант (ЕНТ)"
+                },
+                organization: "Ministry of Higher Education and Science of Kazakhstan",
+                badge: "State Grant",
+                deadline: "July 13 - July 20 (Annual)",
+                coverage: "100% Tuition + Monthly State Stipend",
+                eligibility: "High School Graduates with UNT scores above threshold (70-135+ depending on major).",
+                details: {
+                    en: "Covers full tuition at top national and state universities in Kazakhstan across 100+ specialties. Allocation is based strictly on competition by UNT subject combination scores.",
+                    kk: "Қазақстанның жетекші жоғары оқу орындарында 100-ден астам мамандық бойынша тегін оқу мен айлық стипендияны қамтамасыз етеді. ҰБТ балдары бойынша конкурс негізінде беріледі.",
+                    ru: "Покрывает 100% стоимости обучения и ежемесячную стипендию в университетах Казахстана. Присуждается на основе конкурса баллов ЕНТ."
+                }
+            },
+            {
+                id: "grant-2",
+                category: "bolashak",
+                title: {
+                    en: "Bolashak International Scholarship",
+                    kk: "«Болашақ» Халықаралық Стипендиясы",
+                    ru: "Международная Стипендия «Болашак»"
+                },
+                organization: "Center for International Programs (CIP KZ)",
+                badge: "International Full-Ride",
+                deadline: "Rolling Calls / Annual Spring-Autumn",
+                coverage: "Tuition, Flight, Housing, Health Insurance, Monthly Living Allowance ($1,500-$2,500)",
+                eligibility: "Kazakhstani citizens meeting GPA requirements, language proficiency (IELTS 6.5+ / KazTest B2), and university offer letter.",
+                details: {
+                    en: "Kazakhstan's prestigious presidential scholarship financing full study at top 100 global universities worldwide with an agreement to return and work in Kazakhstan.",
+                    kk: "Қазақстан Республикасы Президентінің белгілі халықаралық стипендиясы. Әлемнің үздік 100 университетінде тегін оқуға және толық қаржылай қолдауға мүмкіндік береді.",
+                    ru: "Престижная президентская стипендия для обучения в топ-100 вузов мира с полным покрытием расходов и последующим трудоустройством в РК."
+                }
+            },
+            {
+                id: "grant-3",
+                category: "stem",
+                title: {
+                    en: "AITU & KBTU Tech & Innovation Merit Scholarships",
+                    kk: "AITU & KBTU Ақпараттық Технологиялар Граны",
+                    ru: "IT-Гранты AITU и КБТУ для Талантливой Молодежи"
+                },
+                organization: "Astana IT University & Kazakh-British Technical University",
+                badge: "University STEM Grant",
+                deadline: "May - June Annual Internal Competition",
+                coverage: "Full or 50% Tuition Waiver for IT/AI Majors",
+                eligibility: "Winners of Republican Olympiads (Infomatics/Math/Physics) or high UNT math-physics scores.",
+                details: {
+                    en: "Special internal university merit grants for high school students excelling in computer science, robotics, software engineering, and mathematics.",
+                    kk: "Информатика, математика және робототехника пәндерінен олимпиада жеңімпаздары мен дарынды мектеп оқушыларына арналған арнайы университеттік гранттар.",
+                    ru: "Внутриуниверситетские гранты для победителей олимпиад и школьников с высокими баллами по физике и информатике."
+                }
+            },
+            {
+                id: "grant-4",
+                category: "regional",
+                title: {
+                    en: "Akim Grant (Regional Governor Educational Grants)",
+                    kk: "Әкім Гранты (Өңірлік Бөлінетін Білім Беру Гранты)",
+                    ru: "Гранты Акима Областей и Городов"
+                },
+                organization: "Local Executive Bodies (Regional Akimats of KZ)",
+                badge: "Regional Grant",
+                deadline: "August 5 - August 15 Annual",
+                coverage: "100% Tuition at local partnering universities",
+                eligibility: "School graduates from specific regions targeting regionally needed professions.",
+                details: {
+                    en: "Grants allocated directly by regional Akimats to support youth from rural areas or specific regions in acquiring high-demand regional specialties.",
+                    kk: "Жергілікті әкімдіктер белгілі бір өңірде тапшы мамандықтарға (мұғалімдер, дәрігерлер, инженерлер) бөлетін гранттар.",
+                    ru: "Гранты, выделяемые акиматами регионов для подготовки кадров по востребованным местным специальностям."
+                }
+            },
+            {
+                id: "grant-5",
+                category: "state",
+                title: {
+                    en: "Nazarbayev University Educational Grant (NU Abay/Merit)",
+                    kk: "Назарбаев Университетінің Мемлекеттік Гранты",
+                    ru: "Образовательный Грант Назарбаев Университета"
+                },
+                organization: "Nazarbayev University Board",
+                badge: "Full University Grant",
+                deadline: "November - November (Early/Regular Admissions)",
+                coverage: "100% Tuition + Stipend + Housing Support",
+                eligibility: "Top high school applicants passing NUET internal entrance examinations and IELTS 6.5+.",
+                details: {
+                    en: "World-class education in Astana taught fully in English. Highly competitive grants covering Foundation and Undergraduate programs.",
+                    kk: "Астана қаласындағы ағылшын тілінде білім беретін әлемдік деңгейдегі университет гранты. NUET және IELTS нәтижелері бойынша беріледі.",
+                    ru: "Грант на обучение в ведущем исследовательском университете РК с преподаванием на английском языке."
+                }
+            },
+            {
+                id: "grant-6",
+                category: "regional",
+                title: {
+                    en: "Serpin-2050 Social Educational Grant Project",
+                    kk: "«Мәңгілік ел жастары — индустрияға!» («Серпін» Жобасы)",
+                    ru: "Социальный Проект «Серпин-2050»"
+                },
+                organization: "Ministry of Education KZ",
+                badge: "Social & Mobility",
+                deadline: "July Annual",
+                coverage: "Full Tuition + Enhanced Stipend + Guaranteed Dormitory",
+                eligibility: "High school graduates from southern regions studying in Eastern, Western, and Northern KZ universities.",
+                details: {
+                    en: "State social program supporting youth mobility to obtain high quality technical and pedagogical degrees in developing regions.",
+                    kk: "Оңтүстік өңір жастарын елдің солтүстік, шығыс және батыс аймақтарындағы ЖОО-ларда тегін білім алуға бағытталған мемлекеттік әлеуметтік жоба.",
+                    ru: "Социальный проект для обучения молодежи из южных областей в вузах северных, восточных и западных регионов Казахстана."
+                }
+            }
+        ];
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderLangText();
+            renderQuizCard();
+            renderCareerCategories();
+            renderCareers();
+            renderGrantCategories();
+            renderGrants();
+        });
+
+        // LANGUAGE SWITCHING LOGIC
+        function setLanguage(lang) {
+            currentLang = lang;
+            ['kk', 'en', 'ru'].forEach(l => {
+                const btn = document.getElementById(`lang-btn-${l}`);
+                if (l === lang) {
+                    btn.className = "px-2.5 py-1 rounded-lg transition-all bg-white text-indigo-700 shadow-sm font-bold";
+                } else {
+                    btn.className = "px-2.5 py-1 rounded-lg transition-all text-slate-600 hover:text-slate-900";
+                }
+            });
+
+            renderLangText();
+            renderQuizCard();
+            renderCareerCategories();
+            renderCareers();
+            renderGrantCategories();
+            renderGrants();
+        }
+
+        function renderLangText() {
+            const dictionary = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (dictionary[key]) {
+                    elem.textContent = dictionary[key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n-placeholder');
+                if (dictionary[key]) {
+                    elem.placeholder = dictionary[key];
+                }
+            });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // QUIZ RENDERING & VECTOR ALGORITHM
+        function renderQuizCard() {
+            const container = document.getElementById('quiz-card-content');
+            const progress = document.getElementById('quiz-progress');
+
+            if (currentQuizIndex < quizQuestions.length) {
+                const qData = quizQuestions[currentQuizIndex];
+                const pct = ((currentQuizIndex) / quizQuestions.length) * 100;
+                progress.style.width = `${pct}%`;
+
+                let html = `
+                    <div class="flex items-center justify-between text-xs font-semibold text-slate-400 mb-4">
+                        <span>QUESTION ${currentQuizIndex + 1} OF ${quizQuestions.length}</span>
+                        <span>${Math.round(pct)}% COMPLETED</span>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-relaxed">${qData.q[currentLang]}</h3>
+                    <div class="space-y-3 mb-8">
+                `;
+
+                qData.options.forEach((opt, idx) => {
+                    const isSelected = quizAnswers[currentQuizIndex] === idx;
+                    html += `
+                        <button onclick="selectOption(${idx})" class="w-full text-left p-4 rounded-xl border transition-all flex items-start space-x-3 ${isSelected ? 'border-indigo-600 bg-indigo-50/70 ring-2 ring-indigo-500/20' : 'border-slate-200 hover:border-slate-300 bg-white'}">
+                            <div class="w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 ${isSelected ? 'border-indigo-600 bg-indigo-600 text-white' : 'border-slate-300'}">
+                                ${isSelected ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+                            </div>
+                            <span class="text-sm font-medium text-slate-800 leading-snug">${opt.text[currentLang]}</span>
+                        </button>
+                    `;
+                });
+
+                html += `
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                        <button onclick="prevQuestion()" ${currentQuizIndex === 0 ? 'disabled class="opacity-40 cursor-not-allowed text-xs font-bold text-slate-400 px-4 py-2"' : 'class="text-xs font-bold text-slate-600 hover:text-slate-900 px-4 py-2"'}>
+                            <i class="fa-solid fa-arrow-left mr-1"></i> ${i18n[currentLang].btn_prev}
+                        </button>
+                        <button onclick="nextQuestion()" ${quizAnswers[currentQuizIndex] === undefined ? 'disabled class="opacity-50 bg-slate-300 text-white text-xs font-bold px-6 py-3 rounded-xl cursor-not-allowed"' : 'class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-6 py-3 rounded-xl shadow-md transition-all"'}>
+                            ${currentQuizIndex === quizQuestions.length - 1 ? i18n[currentLang].btn_results : i18n[currentLang].btn_next + ' <i class="fa-solid fa-arrow-right ml-1"></i>'}
+                        </button>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            } else {
+                progress.style.width = `100%`;
+                renderQuizResults(container);
+            }
+        }
+
+        function selectOption(idx) {
+            quizAnswers[currentQuizIndex] = idx;
+            renderQuizCard();
+        }
+
+        function nextQuestion() {
+            if (quizAnswers[currentQuizIndex] !== undefined) {
+                currentQuizIndex++;
+                renderQuizCard();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuizCard();
+            }
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            quizAnswers = [];
+            renderQuizCard();
+        }
+
+        function renderQuizResults(container) {
+            // Calculate domain vector scores
+            const vectorScores = {
+                tech: 0,
+                science: 0,
+                engineering: 0,
+                creative: 0,
+                business: 0,
+                social: 0
+            };
+
+            quizAnswers.forEach((ansIdx, qIdx) => {
+                const vec = quizQuestions[qIdx].options[ansIdx].vector;
+                if (vectorScores[vec] !== undefined) {
+                    vectorScores[vec] += 1;
+                }
+            });
+
+            const maxPossible = quizQuestions.length;
+            
+            // Map scores to sorted list
+            const sortedVectors = Object.keys(vectorScores).map(key => ({
+                domain: key,
+                count: vectorScores[key],
+                percentage: Math.min(100, Math.round((vectorScores[key] / (maxPossible / 2.5)) * 100))
+            })).sort((a, b) => b.count - a.count);
+
+            const topDomain = sortedVectors[0].domain;
+            
+            // Filter top matching careers from catalog
+            const matchedCareers = careerProfilesData.filter(c => c.category === topDomain).slice(0, 3);
+            if (matchedCareers.length === 0) {
+                matchedCareers.push(...careerProfilesData.slice(0, 3));
+            }
+
+            let html = `
+                <div class="py-2">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                        <span>Multi-Vector Match Analysis Complete</span>
+                    </div>
+
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-2">Your Career Aptitude Breakdown</h3>
+                    <p class="text-xs text-slate-500 mb-6">Based on your 10 scenario responses, here is your skill and interest distribution across primary domains:</p>
+
+                    <!-- Domain Match Bars -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+            `;
+
+            sortedVectors.forEach(v => {
+                const domainLabels = {
+                    tech: "IT & Artificial Intelligence",
+                    science: "Biotechnology & Medicine",
+                    engineering: "Engineering & Energy",
+                    creative: "Design & Digital Media",
+                    business: "Business & Finance",
+                    social: "Public Policy, Law & Edu"
+                };
+
+                html += `
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-700 mb-1">
+                            <span>${domainLabels[v.domain]}</span>
+                            <span class="text-indigo-600">${v.percentage}%</span>
+                        </div>
+                        <div class="bg-slate-200 h-2 w-full rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-indigo-600 to-cyan-500 h-2 rounded-full" style="width: ${v.percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+
+                    <!-- Top Career Recommendations -->
+                    <h4 class="text-base font-bold text-slate-900 mb-4 border-t pt-4">Top Recommended Career Paths for You:</h4>
+                    <div class="space-y-3 mb-8">
+            `;
+
+            matchedCareers.forEach(car => {
+                html += `
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-indigo-100 text-indigo-700 mb-1 inline-block">${car.badge}</span>
+                            <h5 class="font-bold text-slate-900 text-sm">${car.title[currentLang]}</h5>
+                            <p class="text-xs text-slate-500 mt-0.5">${i18n[currentLang].unt_subjects}: <span class="font-semibold text-slate-700">${car.untSubjects[currentLang]}</span></p>
+                        </div>
+                        <button onclick="openCareerModal('${car.id}')" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shrink-0 self-start sm:self-center">
+                            Full Roadmap
+                        </button>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button onclick="restartQuiz()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-all">
+                            <i class="fa-solid fa-rotate-right mr-1.5"></i> ${i18n[currentLang].btn_restart}
+                        </button>
+                        <a href="#grants" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs shadow-md transition-all text-center">
+                            <i class="fa-solid fa-graduation-cap mr-1.5"></i> ${i18n[currentLang].hero_cta_grants}
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // CAREERS CATALOG RENDERING
+        function renderCareerCategories() {
+            const container = document.getElementById('career-category-tags');
+            const categories = [
+                { id: 'all', label: i18n[currentLang].ccat_all },
+                { id: 'tech', label: i18n[currentLang].ccat_tech },
+                { id: 'science', label: i18n[currentLang].ccat_science },
+                { id: 'engineering', label: i18n[currentLang].ccat_engineering },
+                { id: 'creative', label: i18n[currentLang].ccat_creative },
+                { id: 'business', label: i18n[currentLang].ccat_business },
+                { id: 'social', label: i18n[currentLang].ccat_social }
+            ];
+
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCareerCategory('${cat.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${selectedCareerCategory === cat.id ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'bg-slate-800 text-slate-300 border border-slate-700 hover:border-slate-600'}">
+                    ${cat.label}
+                </button>
+            `).join('');
+        }
+
+        function setCareerCategory(cat) {
+            selectedCareerCategory = cat;
+            renderCareerCategories();
+            renderCareers();
+        }
+
+        function filterCareers() {
+            renderCareers();
+        }
+
+        function renderCareers() {
+            const container = document.getElementById('careers-grid');
+            const searchVal = (document.getElementById('career-search').value || '').toLowerCase();
+
+            const filtered = careerProfilesData.filter(item => {
+                const matchesCategory = selectedCareerCategory === 'all' || item.category === selectedCareerCategory;
+                const titleText = item.title[currentLang].toLowerCase();
+                const untText = item.untSubjects[currentLang].toLowerCase();
+                const matchesSearch = titleText.includes(searchVal) || untText.includes(searchVal);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-slate-800/60 rounded-2xl border border-slate-700">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-500 mb-3 block"></i>
+                        <p class="text-slate-400 font-medium text-sm">No careers match your search filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 shadow-sm hover:border-cyan-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-cyan-950 text-cyan-400 border border-cyan-800">${item.badge}</span>
+                            <span class="text-[10px] text-emerald-400 font-semibold"><i class="fa-solid fa-chart-line mr-1"></i>${item.outlook.split('(')[0]}</span>
+                        </div>
+                        <h3 class="font-bold text-white text-base leading-snug mb-2">${item.title[currentLang]}</h3>
+                        <p class="text-xs text-slate-300 line-clamp-2 mb-4 leading-relaxed">${item.summary[currentLang]}</p>
+                        
+                        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/60 mb-4 text-xs space-y-1">
+                            <div><span class="text-slate-400">${i18n[currentLang].unt_subjects}:</span> <span class="font-semibold text-cyan-300">${item.untSubjects[currentLang]}</span></div>
+                            <div><span class="text-slate-400">${i18n[currentLang].starting_salary}:</span> <span class="font-semibold text-emerald-300">${item.startingSalary}</span></div>
+                        </div>
+                    </div>
+
+                    <button onclick="openCareerModal('${item.id}')" class="w-full py-2.5 rounded-xl bg-slate-700 hover:bg-cyan-600 hover:text-slate-950 text-white font-bold text-xs transition-all flex items-center justify-center space-x-2">
+                        <span>Career Passport & Universities</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openCareerModal(id) {
+            const item = careerProfilesData.find(c => c.id === id);
+            if (!item) return;
+
+            const modal = document.getElementById('career-modal');
+            const content = document.getElementById('career-modal-content');
+
+            content.innerHTML = `
+                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-200 mb-2 inline-block">${item.badge}</span>
+                <h3 class="text-2xl font-extrabold text-slate-900 mb-3">${item.title[currentLang]}</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">${item.summary[currentLang]}</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-xs">
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-400 uppercase text-[10px] tracking-wider block mb-1">${i18n[currentLang].unt_subjects}</span>
+                        <p class="font-bold text-slate-900">${item.untSubjects[currentLang]}</p>
+                    </div>
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-400 uppercase text-[10px] tracking-wider block mb-1">${i18n[currentLang].starting_salary}</span>
+                        <p class="font-bold text-emerald-600">${item.startingSalary}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-xs text-slate-700 mb-6">
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-2">${i18n[currentLang].top_universities}</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${item.kzUniversities.map(u => `<span class="bg-white border border-slate-200 px-2.5 py-1 rounded-lg font-semibold text-slate-800">${u}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-2">${i18n[currentLang].global_universities}</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${item.globalUniversities.map(g => `<span class="bg-white border border-slate-200 px-2.5 py-1 rounded-lg font-semibold text-indigo-700">${g}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-2">Essential Hard & Soft Skills</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${item.skills.map(s => `<span class="bg-indigo-50 border border-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg font-semibold">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-3 pt-2">
+                    <a href="#grants" onclick="closeCareerModal()" class="w-full text-center py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md">
+                        Check Available Grants
+                    </a>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeCareerModal() {
+            document.getElementById('career-modal').classList.add('hidden');
+        }
+
+        // GRANTS RENDERING & MODAL
+        function renderGrantCategories() {
+            const container = document.getElementById('grant-category-tags');
+            const categories = [
+                { id: 'all', label: i18n[currentLang].cat_all },
+                { id: 'state', label: i18n[currentLang].cat_state },
+                { id: 'bolashak', label: i18n[currentLang].cat_bolashak },
+                { id: 'stem', label: i18n[currentLang].cat_stem },
+                { id: 'regional', label: i18n[currentLang].cat_regional }
+            ];
+
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setGrantCategory('${cat.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${selectedCategory === cat.id ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'}">
+                    ${cat.label}
+                </button>
+            `).join('');
+        }
+
+        function setGrantCategory(cat) {
+            selectedCategory = cat;
+            renderGrantCategories();
+            renderGrants();
+        }
+
+        function filterGrants() {
+            renderGrants();
+        }
+
+        function renderGrants() {
+            const container = document.getElementById('grants-grid');
+            const searchVal = (document.getElementById('grant-search').value || '').toLowerCase();
+
+            const filtered = grantsData.filter(item => {
+                const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+                const titleText = item.title[currentLang].toLowerCase();
+                const orgText = item.organization.toLowerCase();
+                return matchesCategory && (titleText.includes(searchVal) || orgText.includes(searchVal));
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3 block"></i>
+                        <p class="text-slate-500 font-medium text-sm">No grants found matching your search criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">${item.badge}</span>
+                            <span class="text-[11px] text-slate-400 font-medium"><i class="fa-regular fa-calendar-check mr-1"></i>${item.deadline}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug mb-2">${item.title[currentLang]}</h3>
+                        <p class="text-xs text-slate-500 mb-4 flex items-center"><i class="fa-solid fa-building text-slate-400 mr-1.5"></i>${item.organization}</p>
+                        <p class="text-slate-600 text-xs line-clamp-3 mb-6 leading-relaxed">${item.details[currentLang]}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] font-semibold text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i>${item.coverage.split('+')[0]}</span>
+                        <button onclick="openGrantModal('${item.id}')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+                            Details <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openGrantModal(id) {
+            const item = grantsData.find(g => g.id === id);
+            if (!item) return;
+
+            const modal = document.getElementById('grant-modal');
+            const content = document.getElementById('grant-modal-content');
+
+            content.innerHTML = `
+                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100 mb-3 inline-block">${item.badge}</span>
+                <h3 class="text-xl font-extrabold text-slate-900 mb-2">${item.title[currentLang]}</h3>
+                <p class="text-xs text-slate-500 mb-6 flex items-center"><i class="fa-solid fa-building text-slate-400 mr-1.5"></i>${item.organization}</p>
+
+                <div class="space-y-3 text-xs text-slate-700 mb-6">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="font-bold text-slate-900 block mb-0.5">${i18n[currentLang].modal_deadline}</span>
+                        <p class="text-slate-600">${item.deadline}</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="font-bold text-slate-900 block mb-0.5">${i18n[currentLang].modal_coverage}</span>
+                        <p class="text-slate-600">${item.coverage}</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="font-bold text-slate-900 block mb-0.5">${i18n[currentLang].modal_eligibility}</span>
+                        <p class="text-slate-600">${item.eligibility}</p>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-xs leading-relaxed mb-6">${item.details[currentLang]}</p>
+
+                <button onclick="closeGrantModal()" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-md">
+                    Close
+                </button>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeGrantModal() {
+            document.getElementById('grant-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
